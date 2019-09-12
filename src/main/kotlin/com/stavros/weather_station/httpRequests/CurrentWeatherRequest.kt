@@ -3,14 +3,19 @@ package com.stavros.weather_station.httpRequests
 import com.google.gson.GsonBuilder
 import com.stavros.weather_station.model.CurrentWeatherModel
 import okhttp3.*
+import org.springframework.context.annotation.Bean
+import org.springframework.stereotype.Component
 import java.io.IOException
 
+@Component
 open class CurrentWeatherRequest {
 
-    fun fetchJson() {
-        println("Atempting to fetch JSON")
+    var returnCityAndTemp: String = ""
 
-        val url = "https://community-open-weather-map.p.rapidapi.com/weather?callback=test&id=2172797&units=metric&mode=xml%2C%20html&q=athens"
+
+    fun fetchCurrentWeather(city: String): String? {
+        println("Atempting to fetch JSON")
+        val url = "https://community-open-weather-map.p.rapidapi.com/weather?callback=test&id=2172797&units=metric&mode=xml%2C%20html&q=${city}"
 
         val request = Request.Builder()
                 .addHeader("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
@@ -29,12 +34,15 @@ open class CurrentWeatherRequest {
                 val gson = GsonBuilder().create()
 
                 val responseGson = gson.fromJson(body, CurrentWeatherModel::class.java)
-                println("Current temp in ${responseGson.name}" +
-                        "is ${responseGson.main.temp} Celsius")
+                returnCityAndTemp = "Current temperature in ${responseGson.name} is ${responseGson.main.temp} Celsius"
+                println(returnCityAndTemp)
             }
+
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to execute request")
             }
         })
+        Thread.sleep(1000)
+        return returnCityAndTemp
     }
 }

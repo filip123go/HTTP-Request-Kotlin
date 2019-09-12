@@ -8,8 +8,5 @@ import org.springframework.boot.runApplication
 class WeatherStationApplication
 
 fun main(args: Array<String>) {
-    val currentWeatherRequest = CurrentWeatherRequest()
     runApplication<WeatherStationApplication>(*args)
-
-    currentWeatherRequest.fetchJson()
 }
