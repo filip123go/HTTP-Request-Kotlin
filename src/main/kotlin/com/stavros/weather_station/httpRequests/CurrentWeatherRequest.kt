@@ -3,7 +3,6 @@ package com.stavros.weather_station.httpRequests
 import com.google.gson.GsonBuilder
 import com.stavros.weather_station.model.CurrentWeatherModel
 import okhttp3.*
-import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import java.io.IOException
 
