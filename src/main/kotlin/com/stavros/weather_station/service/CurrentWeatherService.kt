@@ -1,4 +1,4 @@
-package com.stavros.weather_station.ervice
+package com.stavros.weather_station.service
 
 import com.stavros.weather_station.httpRequests.CurrentWeatherRequest
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +15,7 @@ class CurrentWeatherService {
     lateinit var currentWeatherRequest: CurrentWeatherRequest
 
     @GetMapping("/{city}")
-    fun returnSomething(@PathVariable city: String): String? {
+    fun returnCurrentWeatherInfo(@PathVariable city: String): String? {
         return currentWeatherRequest.fetchCurrentWeather(city)
     }
 
